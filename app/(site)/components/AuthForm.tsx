@@ -5,16 +5,16 @@ import Input from "@/app/components/inputs/Input";
 import { useCallback, useState } from "react";
 import { FieldValues, useForm, SubmitHandler } from "react-hook-form";
 import AuthSotialButton from "./AuthSotialButton";
-import { BsLinkedin, BsGoogle } from "react-icons/bs";
+import { BsGithub, BsGoogle } from "react-icons/bs";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { signIn } from "next-auth/react";
 
 type Variant = "LOGIN" | "REGISTER";
 
-interface AuthFormProps {
-  loading: boolean;
-  setLoading: (isLoading: boolean) => void;
-}
+const AuthForm = () => {
+  const [loading, setLoading] = useState(false);
 
-const AuthForm: React.FC<AuthFormProps> = ({ loading, setLoading }) => {
   const [variant, setVariant] = useState<Variant>("LOGIN");
 
   const toggleVariant = useCallback(() => {
@@ -40,20 +40,65 @@ const AuthForm: React.FC<AuthFormProps> = ({ loading, setLoading }) => {
     setLoading(true);
 
     if (variant === "REGISTER") {
-      console.log("asd");
+      axios
+        .post("/api/register", data)
+        .then((callback) => {
+          if (callback.statusText === "OK") {
+            toast.success("Register success");
+          }
+        })
+        .catch(() =>
+          toast.error(
+            !data.name && !data.email && !data.password
+              ? "Fill in all the fields"
+              : !data.name
+              ? "Name is required"
+              : !data.email
+              ? "Email is required"
+              : !data.password
+              ? "Password is required"
+              : "Something wrong! May be user already exist"
+          )
+        )
+        .finally(() => {
+          setLoading(false);
+        });
     }
     if (variant === "LOGIN") {
-      console.log(data);
+      signIn("credentials", {
+        ...data,
+        redirect: false,
+      })
+        .then((callback) => {
+          if (callback?.error) {
+            toast.error(callback?.error);
+          }
+          if (callback?.ok && !callback.error) {
+            toast.success("Logged in");
+          }
+        })
+        .finally(() => setLoading(false));
     }
   };
 
   const socialAction = (action: string) => {
     setLoading(true);
-    console.log(action);
+
+    signIn(action, { redirect: false })
+      .then((callback) => {
+        if (callback?.error) {
+          toast.error(callback?.error);
+        }
+        if (callback?.ok && !callback?.error) {
+          toast.success("Logged in");
+        }
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
     <div className=" mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+      <div></div>
       <div className=" bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10">
         <form className=" space-y-6" onSubmit={handleSubmit(onSubmit)}>
           {variant === "REGISTER" && (
@@ -105,8 +150,8 @@ const AuthForm: React.FC<AuthFormProps> = ({ loading, setLoading }) => {
               onClick={() => socialAction("google")}
             />
             <AuthSotialButton
-              icon={BsLinkedin}
-              onClick={() => socialAction("linkedin")}
+              icon={BsGithub}
+              onClick={() => socialAction("github")}
             />
           </div>
         </div>
