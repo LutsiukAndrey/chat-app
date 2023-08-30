@@ -3,11 +3,18 @@
 import { useRoutes } from "@/app/hooks/useRoutes";
 import { useState } from "react";
 import DesctopItem from "./DesctopItem";
+import { User } from "@prisma/client";
+import Avatar from "../Avatar";
 
-const DesctopSidebar = () => {
+interface DesctopSidebarProps {
+  curentUser: User;
+}
+
+const DesctopSidebar: React.FC<DesctopSidebarProps> = ({ curentUser }) => {
   const routes = useRoutes();
 
   const [isOpen, setIsOpen] = useState(false);
+  console.log({ curentUser });
 
   return (
     <div
@@ -36,6 +43,14 @@ const DesctopSidebar = () => {
             />
           ))}
         </ul>
+      </nav>
+      <nav className=" mt-4 flex flex-col justify-between items-center">
+        <div
+          onClick={() => setIsOpen(true)}
+          className=" cursor-pointer hover:opacity-75 transition"
+        >
+          <Avatar user={curentUser} />
+        </div>
       </nav>
     </div>
   );
