@@ -2,6 +2,9 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import ToasterContext from "./context/ToasterContext";
+import AuthContext from "./context/AuthContext";
+import background from "../public/bcg.jpg";
+import clsx from "clsx";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,10 +20,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <ToasterContext />
-
-        {children}
+      <body
+        // style={{
+        //   backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.4)), url(${background.src})`,
+        //   backgroundSize: "cover",
+        //   backgroundRepeat: "no-repeat",
+        // }}
+        className={inter.className}
+      >
+        <AuthContext>
+          <ToasterContext />
+          {children}
+        </AuthContext>
       </body>
     </html>
   );

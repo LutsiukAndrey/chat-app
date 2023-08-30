@@ -2,20 +2,32 @@
 
 import Button from "@/app/components/inputs/Button";
 import Input from "@/app/components/inputs/Input";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FieldValues, useForm, SubmitHandler } from "react-hook-form";
 import AuthSotialButton from "./AuthSotialButton";
 import { BsGithub, BsGoogle } from "react-icons/bs";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 type Variant = "LOGIN" | "REGISTER";
 
 const AuthForm = () => {
+  const session = useSession();
+
+  const router = useRouter();
+
   const [loading, setLoading] = useState(false);
 
   const [variant, setVariant] = useState<Variant>("LOGIN");
+
+  useEffect(() => {
+    if (session?.status === "authenticated") {
+      router.push("/users");
+    }
+  }, [router, session?.status]);
 
   const toggleVariant = useCallback(() => {
     if (variant === "LOGIN") {
@@ -42,10 +54,8 @@ const AuthForm = () => {
     if (variant === "REGISTER") {
       axios
         .post("/api/register", data)
-        .then((callback) => {
-          if (callback.statusText === "OK") {
-            toast.success("Register success");
-          }
+        .then(() => {
+          signIn("credentials", data);
         })
         .catch(() =>
           toast.error(
@@ -75,6 +85,7 @@ const AuthForm = () => {
           }
           if (callback?.ok && !callback.error) {
             toast.success("Logged in");
+            router.push("/users");
           }
         })
         .finally(() => setLoading(false));
@@ -97,9 +108,21 @@ const AuthForm = () => {
   };
 
   return (
-    <div className=" mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-      <div></div>
+    <div className="sm:mx-auto sm:w-full sm:max-w-md">
       <div className=" bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10">
+        <div className=" sm:mx-auto sm:w-full sm:max-w-md mb-8">
+          <Image
+            alt="logo"
+            height="48"
+            width="48"
+            className="mx-auto w-auto"
+            src="/images/logo.png"
+          />
+
+          <h2 className=" mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+            Sign to Chat
+          </h2>
+        </div>
         <form className=" space-y-6" onSubmit={handleSubmit(onSubmit)}>
           {variant === "REGISTER" && (
             <Input
