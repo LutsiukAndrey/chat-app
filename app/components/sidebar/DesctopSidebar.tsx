@@ -14,7 +14,6 @@ const DesctopSidebar: React.FC<DesctopSidebarProps> = ({ curentUser }) => {
   const routes = useRoutes();
 
   const [isOpen, setIsOpen] = useState(false);
-  console.log({ curentUser });
 
   return (
     <div
