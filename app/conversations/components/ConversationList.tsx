@@ -18,7 +18,6 @@ const ConversationList: React.FC<ConversationListProps> = ({
   initialItems,
 }) => {
   const [items, setItems] = useState(initialItems);
-  console.log("initialItems", initialItems);
 
   const router = useRouter();
 

@@ -8,6 +8,7 @@ import { format } from "date-fns";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
+import { BsCheck, BsCheck2All } from "react-icons/bs";
 
 interface ConversationBoxProps {
   data: FullConversationType;
@@ -71,25 +72,31 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
     >
       <Avatar user={otherUser} />
       <div className=" min-w-0 flex-1">
-        <div className=" focus:outline-none">
-          <div className=" flex justify-between items-center mb-1">
+        <div className=" focus:outline-none flex">
+          <div className=" flex flex-col justify-between mb-1 overflow-hidden">
             <p className=" text-lg font-medium text-gray-900">
               {data.name || otherUser.name}
             </p>
-            {lastMessage?.createdAt && (
-              <p className=" text-xs text-gray-400 font-light">
+            <p
+              className={clsx(
+                " truncate text-sm max-w-[150px]",
+                hasSeen ? "text-gray-400" : "text-black font-medium"
+              )}
+            >
+              {lastMessageText}
+            </p>
+          </div>
+
+          {lastMessage?.createdAt && (
+            <div className=" flex flex-col items-center gap-2 mr-0 ml-auto">
+              <p className="text-xs text-gray-400 font-light">
                 {format(new Date(lastMessage.createdAt), "p")}
               </p>
-            )}
-          </div>
-          <p
-            className={clsx(
-              " truncate text-sm",
-              hasSeen ? "text-gray-500" : "text-black font-medium"
-            )}
-          >
-            {lastMessageText}
-          </p>
+              {!hasSeen && (
+                <span className="rounded-full bg-blue-400 ring-2 ring-white top-10 right-10 h-2 w-2 md:h-3 md:w-3" />
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>
