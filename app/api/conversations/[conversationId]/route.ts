@@ -27,11 +27,11 @@ export async function DELETE(
       },
     });
 
-    if (existingConversation) {
+    if (!existingConversation) {
       return new NextResponse("Invalid id", { status: 400 });
     }
 
-    const deletedConversayion = await prisma.conversation.deleteMany({
+    const deletedConversation = await prisma.conversation.deleteMany({
       where: {
         id: conversationId,
         userIds: {
@@ -40,7 +40,7 @@ export async function DELETE(
       },
     });
 
-    return NextResponse.json(deletedConversayion);
+    return NextResponse.json(deletedConversation);
   } catch (error: any) {
     console.log(error, "CONVERSATION_DELETE");
     return new NextResponse("Interal error", { status: 500 });
