@@ -1,21 +1,21 @@
 "use client";
 
-import { useConversation } from "@/app/hooks/useConversation";
-import { FullMessageType } from "@/app/types";
-import { useEffect, useRef, useState } from "react";
-import MessageBox from "./MessageBox";
 import axios from "axios";
+import { useEffect, useRef, useState } from "react";
+
 import { pusherClient } from "@/app/libs/pusher";
+import MessageBox from "./MessageBox";
+import { FullMessageType } from "@/app/types";
 import { find } from "lodash";
+import { useConversation } from "@/app/hooks/useConversation";
 
 interface BodyProps {
   initialMessages: FullMessageType[];
 }
 
-const Body: React.FC<BodyProps> = ({ initialMessages }) => {
-  const [messages, setMessages] = useState(initialMessages);
-
+const Body: React.FC<BodyProps> = ({ initialMessages = [] }) => {
   const bottomRef = useRef<HTMLDivElement>(null);
+  const [messages, setMessages] = useState(initialMessages);
 
   const { conversationId } = useConversation();
 
@@ -28,14 +28,17 @@ const Body: React.FC<BodyProps> = ({ initialMessages }) => {
     bottomRef?.current?.scrollIntoView();
 
     const messageHandler = (message: FullMessageType) => {
+      axios.post(`/api/conversations/${conversationId}/seen`);
+
       setMessages((current) => {
         if (find(current, { id: message.id })) {
           return current;
         }
+
         return [...current, message];
       });
+
       bottomRef?.current?.scrollIntoView();
-      axios.post(`/api/conversations/${conversationId}/seen`);
     };
 
     const updateMessageHandler = (newMessage: FullMessageType) => {
@@ -44,6 +47,7 @@ const Body: React.FC<BodyProps> = ({ initialMessages }) => {
           if (currentMessage.id === newMessage.id) {
             return newMessage;
           }
+
           return currentMessage;
         })
       );
@@ -60,16 +64,15 @@ const Body: React.FC<BodyProps> = ({ initialMessages }) => {
   }, [conversationId]);
 
   return (
-    <div className=" flex-1 overflow-y-auto space-y-2 py-2">
+    <div className="flex-1 overflow-y-auto">
       {messages.map((message, i) => (
         <MessageBox
-          isLast={1 === messages.length - 1}
+          isLast={i === messages.length - 1}
           key={message.id}
           data={message}
         />
       ))}
-
-      <div ref={bottomRef} className="pt-24" />
+      <div className="pt-24" ref={bottomRef} />
     </div>
   );
 };

@@ -9,6 +9,7 @@ import { format } from "date-fns";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
+import { BsCheck, BsCheck2All } from "react-icons/bs";
 
 interface ConversationBoxProps {
   data: FullConversationType;
@@ -51,6 +52,8 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
     return seenArr.filter((user) => user.email === userEmail).length !== 0;
   }, [lastMessage, userEmail]);
 
+  const isOwn = session?.data?.user?.email === lastMessage?.sender?.email;
+
   const lastMessageText = useMemo(() => {
     if (lastMessage?.image) {
       return "Sent an image";
@@ -87,7 +90,13 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
                 hasSeen ? "text-gray-400" : "text-black font-medium"
               )}
             >
-              {lastMessageText}
+              {isOwn ? "You: " + lastMessageText : lastMessageText}
+              {/* {isOwn &&
+                (seenList.length > 0 ? (
+                  <BsCheck2All size={20} className="text-blue-600" />
+                ) : (
+                  <BsCheck size={20} className="text-blue-600" />
+                ))} */}
             </p>
           </div>
 
