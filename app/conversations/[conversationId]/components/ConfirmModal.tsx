@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
 import { FiAlertTriangle } from "react-icons/fi";
-import { Transition, Dialog } from "@headlessui/react";
+import { Dialog } from "@headlessui/react";
 import Button from "@/app/components/inputs/Button";
 
 interface ConfirmModalProps {
@@ -58,10 +58,10 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({ isOpen, onClose }) => {
       </div>
 
       <div className=" mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
-        <Button disabled={loading} danger onClick={onDelete}>
+        <Button disabled={loading} type="button" danger onClick={onDelete}>
           Delete
         </Button>
-        <Button disabled={loading} secondary onClick={onClose}>
+        <Button disabled={loading} type="button" secondary onClick={onClose}>
           Cancel
         </Button>
       </div>
