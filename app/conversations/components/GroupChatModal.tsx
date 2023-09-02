@@ -52,7 +52,7 @@ const GroupChatModal: React.FC<GroupChatModalProps> = ({
         router.refresh();
         onClose();
       })
-      .catch(() => toast.error("Something wrong"))
+      .catch(() => toast.error("You should add at least two members"))
       .finally(() => setLoading(false));
   };
 
