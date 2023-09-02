@@ -69,8 +69,8 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
     <div
       onClick={handleClick}
       className={clsx(
-        " w-full p-3 relative flex items-center space-x-3 hover:bg-neutral-100 rounded-lg transition cursor-pointer",
-        selected ? "bg-neutral-100" : "bg-white"
+        " w-full p-3 relative flex items-center space-x-3 hover:bg-orange-400 rounded-lg transition cursor-pointer",
+        selected ? "bg-orange-500 " : "bg-white"
       )}
     >
       {data.isGroup ? (
@@ -87,26 +87,26 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
             <p
               className={clsx(
                 " truncate text-sm max-w-[140px]",
-                hasSeen ? "text-gray-400" : "text-black font-medium"
+                hasSeen ? "text-gray-400" : "text-black font-medium",
+                selected && " text-white"
               )}
             >
               {isOwn ? "You: " + lastMessageText : lastMessageText}
-              {/* {isOwn &&
-                (seenList.length > 0 ? (
-                  <BsCheck2All size={20} className="text-blue-600" />
-                ) : (
-                  <BsCheck size={20} className="text-blue-600" />
-                ))} */}
             </p>
           </div>
 
           {lastMessage?.createdAt && (
             <div className=" flex flex-col items-center gap-2 mr-0 ml-auto">
-              <p className="text-xs text-gray-400 font-light">
+              <p
+                className={clsx(
+                  "text-xs text-gray-400 font-light",
+                  selected && " text-white"
+                )}
+              >
                 {format(new Date(lastMessage.createdAt), "p")}
               </p>
               {!hasSeen && (
-                <span className="rounded-full bg-blue-400 ring-2 ring-white top-10 right-10 h-2 w-2 md:h-3 md:w-3" />
+                <span className="rounded-full bg-orange-400 ring-2 ring-white top-10 right-10 h-2 w-2 md:h-3 md:w-3" />
               )}
             </div>
           )}

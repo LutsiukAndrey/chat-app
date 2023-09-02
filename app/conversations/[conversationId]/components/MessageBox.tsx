@@ -29,7 +29,7 @@ const MessageBox: React.FC<MessageBoxProps> = ({ data, isLast }) => {
 
   const container = clsx(
     "flex gap-3  w-fit  p-4 rounded-md ",
-    isOwn ? " ml-auto m-0 bg-sky-300 text-black" : "bg-gray-200"
+    isOwn ? " ml-auto m-0 bg-orange-300 text-black" : "bg-gray-200"
   );
 
   const avatar = clsx(isOwn && "order-2");
@@ -76,9 +76,9 @@ const MessageBox: React.FC<MessageBoxProps> = ({ data, isLast }) => {
       </div>
       {isOwn &&
         (seenList.length > 0 ? (
-          <BsCheck2All size={20} className="text-blue-600" />
+          <BsCheck2All size={20} className="text-orange-600" />
         ) : (
-          <BsCheck size={20} className="text-blue-600" />
+          <BsCheck size={20} className="text-orange-600" />
         ))}
     </div>
   );

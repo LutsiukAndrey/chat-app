@@ -26,12 +26,12 @@ const DesctopItem: React.FC<DesctopItemProps> = ({
       <Link
         href={href}
         className={clsx(
-          " group flex gap-x-3 rounded-md p-3 text-sm leading-6 font-semibold text-gray-500 hover:text-black hover:bg-gray-100",
-          active && " bg-gray-100 text-black"
+          " group flex gap-x-3 rounded-xl p-3 text-sm leading-6 font-semibold text-gray-500 hover:text-white hover:bg-orange-400",
+          active && " bg-orange-500 text-white"
         )}
       >
-        <Icon className=" h-6 w-6 shrink-0" />
-        <span className=" sr-only">{label}</span>
+        <Icon className=" h-6 w-6 shrink-0 mr-2" />
+        <span className="">{label}</span>
       </Link>
     </li>
   );

@@ -26,7 +26,7 @@ const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
       className={clsx(
         `
-      flex justify-center rounded-md px-3 py-2 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+      flex justify-center rounded-full px-3 py-2 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
       `,
         disabled && "opacity-50 cursor-default",
         fullWidth && "w-full",
@@ -35,7 +35,7 @@ const Button: React.FC<ButtonProps> = ({
           " bg-rose-500 hover:bg-rose-600 focus-visible:outline-rose-600",
         !secondary &&
           !danger &&
-          "bg-sky-500 hover:bg-sky-600 focus-visible:outline-sky-600"
+          "bg-orange-500 hover:bg-orange-600 focus-visible:outline-sky-600"
       )}
     >
       {children}

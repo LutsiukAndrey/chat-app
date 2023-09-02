@@ -12,6 +12,8 @@ import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
+import { AiOutlineUser } from "react-icons/ai";
+
 type Variant = "LOGIN" | "REGISTER";
 
 const AuthForm = () => {
@@ -119,14 +121,26 @@ const AuthForm = () => {
             src="/images/logo.png"
           />
 
-          <h2 className=" mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+          <h1 className=" my-6 text-center text-3xl font-bold tracking-tight text-gray-900">
             Sign to Chat
-          </h2>
+          </h1>
+          <p>You can login with Google or GitHub Account:</p>
+          <div className=" mt-6 flex gap-2">
+            <AuthSotialButton
+              icon={BsGoogle}
+              onClick={() => socialAction("google")}
+            />
+            <AuthSotialButton
+              icon={BsGithub}
+              onClick={() => socialAction("github")}
+            />
+          </div>
         </div>
         <form className=" space-y-6" onSubmit={handleSubmit(onSubmit)}>
           {variant === "REGISTER" && (
             <Input
               disabled={loading}
+              icon={AiOutlineUser}
               id="name"
               label="Name"
               register={register}
@@ -166,23 +180,15 @@ const AuthForm = () => {
               </span>
             </div>
           </div>
-
-          <div className=" mt-6 flex gap-2">
-            <AuthSotialButton
-              icon={BsGoogle}
-              onClick={() => socialAction("google")}
-            />
-            <AuthSotialButton
-              icon={BsGithub}
-              onClick={() => socialAction("github")}
-            />
-          </div>
         </div>
         <div className=" flex gap-2 justify-center text-sm mt-6 px-2 text-gray-500">
           <p>
             {variant === "LOGIN" ? "New to chat?" : "Already have an account?"}
           </p>
-          <p onClick={toggleVariant} className=" underline cursor-pointer">
+          <p
+            onClick={toggleVariant}
+            className=" underline cursor-pointer text-orange-500"
+          >
             {variant === "LOGIN" ? "Create an account" : "Login"}
           </p>
         </div>

@@ -30,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({ conversation }) => {
       return `${conversation.users.length} members`;
     }
 
-    return isActive ? "Online" : "Ofline";
+    return isActive ? "Online" : "Offline";
   }, [conversation, isActive]);
 
   return (
@@ -42,7 +42,7 @@ const Header: React.FC<HeaderProps> = ({ conversation }) => {
         onClose={() => setDrawerOpen(false)}
       />
 
-      <div className=" bg-white w-full rounded-b-md flex border-b-[1px] sm:px-4 py-3 px-4 lg:px-6 justify-between items-center shadow-sm">
+      <div className=" bg-white w-full rounded-b-xl flex border-b-[1px] sm:px-4 py-2 px-4 lg:px-6 justify-between items-center shadow-sm">
         <div className=" flex gap-3 items-center">
           <Link
             className=" lg:hidden block text-sky-500 hover:text-sky-600 transition cursor-pointer"
@@ -66,7 +66,7 @@ const Header: React.FC<HeaderProps> = ({ conversation }) => {
         <HiEllipsisHorizontal
           size={32}
           onClick={() => setDrawerOpen(true)}
-          className=" text-sky-500 cursor-pointer hover:text-sky-800 transition"
+          className=" text-orange-400 cursor-pointer hover:text-orange-600 transition"
         />
       </div>
     </>

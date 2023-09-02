@@ -106,11 +106,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                     onUpload={handleUpload}
                     uploadPreset="czfod2tp"
                   >
-                    <div>
-                      {/* <Button disabled={loading} secondary type="button"> */}
-                      Change
-                      {/* </Button> */}
-                    </div>
+                    <p className=" hover:text-orange-500">Change</p>
                   </CldUploadButton>
                 </div>
               </div>

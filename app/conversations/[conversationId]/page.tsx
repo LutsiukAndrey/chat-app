@@ -24,7 +24,7 @@ const CoversationId = async ({ params }: { params: IParams }) => {
   }
 
   return (
-    <div className=" lg:pl-80 h-full">
+    <div className=" lg:pl-[30rem] h-full">
       <div className=" h-full flex flex-col px-3 ">
         <Header conversation={conversation} />
         <Body initialMessages={messages} />

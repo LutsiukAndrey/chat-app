@@ -16,7 +16,7 @@ const AuthSotialButton: React.FC<AuthSotialButtonProps> = ({
       className=" inline-flex
        w-full
         justify-center 
-       rounded-md
+       rounded-full
         bg-white
          px-4
           py-2
@@ -25,7 +25,7 @@ const AuthSotialButton: React.FC<AuthSotialButtonProps> = ({
         ring-1
         ring-inset
          ring-gray-300
-         hover:bg-gray-50 
+         hover:bg-orange-100
          focus:outline-offset-0"
     >
       <Icon />

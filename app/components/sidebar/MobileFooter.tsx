@@ -6,7 +6,6 @@ import MobileItem from "./MobileItem";
 
 import { AiOutlineSetting } from "react-icons/ai";
 import { User } from "@prisma/client";
-import clsx from "clsx";
 import { useState } from "react";
 import SettingsModal from "./SettingsModal";
 

@@ -99,26 +99,26 @@ const ConversationList: React.FC<ConversationListProps> = ({
 
       <aside
         className={clsx(
-          "fixed inset-y-0 pb-20 lg:pb-0 lg:left-20 lg:w-80 lg:block overflow-y-auto border-r border-gray-200",
+          "fixed inset-y-0 pb-20 lg:pb-0 lg:left-60 lg:w-80 lg:block overflow-y-auto border-r border-gray-200",
           isOpen ? "hidden" : "block w-full left-0"
         )}
       >
-        <div className=" px-5">
-          <div className="flex justify-between mb-4 pt-4">
-            <h4
-              className="
+        <div className="flex justify-between bg-white mb-2 rounded-b-md px-2 py-4">
+          <h4
+            className="
           text-2xl font-bold text-neutral-800
           "
-            >
-              Messages
-            </h4>
-            <div
-              onClick={() => setModalOpen(true)}
-              className=" rounded-full p-2 bg-gray-100 text-gray-600 cursor-pointer hover:opacity-75 transition"
-            >
-              <MdOutlineGroupAdd size={20} />
-            </div>
+          >
+            Messages
+          </h4>
+          <div
+            onClick={() => setModalOpen(true)}
+            className=" rounded-full p-2 bg-gray-100 text-gray-600 cursor-pointer hover:opacity-75 transition"
+          >
+            <MdOutlineGroupAdd size={20} className=" text-orange-400" />
           </div>
+        </div>
+        <div className=" px-5">
           <div className=" space-y-2">
             {items.map((item) => (
               <ConversationBox
