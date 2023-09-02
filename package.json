@@ -47,6 +47,7 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
+    "encoding": "^0.1.13",
     "prisma": "^5.2.0"
   }
 }
